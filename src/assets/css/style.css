@@ -1,0 +1,106 @@
+/* start of my code */
+
+/* variables */
+:root {
+    --background: white;
+    --heading-fc: white;
+}
+
+/* dark theme variables */
+[data-theme="dark"] {
+    --background: black;
+    --heading-fc: white;
+}
+
+/* imported fonts */
+.material-symbols-sharp {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.material-symbols-rounded {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.myContainer {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* top image */
+.hero {
+    background-image: url(../images/bg-mobile-light.jpg);
+    width: 100vw;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+    background-size: cover;
+}
+
+.hero[data-theme="dark"] {
+    background-image: url(../images/bg-mobile-dark.jpg);
+    width: 100vw;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: 10% 100%;
+    background-size: cover;
+}
+
+/* inner container */
+.innerContainer {
+    padding: 0 7%;
+}
+
+/* heading / title */
+.heading {
+    position: relative;
+    top: -160px;
+
+}
+
+.heading h2, .heading span {
+    font-size: 32px;
+    margin: 0;
+    color: var(--heading-fc);
+}
+
+.modeIcon {
+    cursor: pointer;
+}
+
+/* create new todo */
+
+.todo {
+    height: 60px;
+    background-color: beige;
+    width: 325px;
+}
+
+.checkbox {
+    margin: 15px 15px;
+}
+
+.textInput {
+    width: 100%;
+    resize: none;
+}
+
+
+
+/* from frontend mentor */
+
+.attribution { 
+    font-size: 11px;
+    text-align: center; 
+}
+
+.attribution a {
+    color: hsl(228, 45%, 44%); 
+}
