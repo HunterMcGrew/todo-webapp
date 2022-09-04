@@ -2,13 +2,15 @@
 
 /* variables */
 :root {
-    --background: white;
+    --backgroundLight: hsl(0, 0%, 95%);
+    --backgroundDark: hsl(235, 21%, 11%);
+    --todoBgLight: white;
     --heading-fc: white;
 }
 
 /* dark theme variables */
 [data-theme="dark"] {
-    --background: black;
+    --background: hsl(235, 21%, 11%);
     --heading-fc: white;
 }
 
@@ -32,6 +34,11 @@
 .myContainer {
     width: 100vw;
     height: 100vh;
+    background-color: var(--backgroundLight);
+}
+
+.myContainer[data-theme="dark"] {
+    background-color: var(--backgroundDark);
 }
 
 /* top image */
@@ -62,7 +69,7 @@
 .heading {
     position: relative;
     top: -160px;
-
+    margin-bottom: -135px;
 }
 
 .heading h2, .heading span {
@@ -77,19 +84,40 @@
 
 /* create new todo */
 
+.todoContainer {
+    width: 325px;
+    height: 60px;
+    background-color: var(--todoBgLight);
+    border-radius: 6px;
+}
+
 .todo {
     height: 60px;
-    background-color: beige;
     width: 325px;
 }
 
 .checkbox {
-    margin: 15px 15px;
+    /* margin: 15px 15px; */
+    width: 50px;
+}
+
+.todo-input {
+    width: 225px;
 }
 
 .textInput {
     width: 100%;
-    resize: none;
+    /* resize: none; */
+    border: none;
+    height: 45px !important;
+}
+
+.textInput:focus {
+    outline: none;
+}
+
+.todo-delete {
+    width: 50px;
 }
 
 

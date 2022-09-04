@@ -3,9 +3,13 @@ import React from 'react';
 import "./assets/css/style.css"
 import Styles from "./assets/css/style.css";
 import useLocalStorage from 'use-local-storage'
+import { useState } from 'react';
 
 // component imports
 import { TextareaAutosize } from '@mui/material';
+
+// Database imports
+import { initDb, getDb, putDb, deleteDb } from "./database/database";
 
 
 function App() {
@@ -16,6 +20,12 @@ function App() {
   // also saves which icon should be displayed based on theme used last
   const displayBtn = localStorage.getItem("icon");
   const [icon, setIcon] = useLocalStorage("icon", displayBtn ? "dark_mode" : "light_mode");
+  // state for new todo inputs
+  const [todo, setTodo] = useState("");
+
+ 
+
+  console.log("todo", todo);
 
   // theme switch handler
   const switchTheme = () => {
@@ -28,12 +38,29 @@ function App() {
     setIcon(newIcon);
   }
 
+  // 
+  const handleChange = e => {
+    setTodo(e.target.value)
+  };
+
+  const handleNewInput = event => {
+    console.log("user pressed: ", event.key);
+    if (event.key === "Enter") {
+      putDb(todo);
+      getDb();
+    }
+  }
+
+  // database stuff
+
+  getDb().then((data) => console.log("data", data));
+
 
 
 
   return (
     
-    <div className="myContainer">
+    <div className="myContainer" data-theme={theme}>
 
       <div className="hero" data-theme={theme}>
         {/* background-image */}
@@ -47,34 +74,26 @@ function App() {
 
     <div className="todoContainer">
       {/* new todo item */}
-      <div className="todo todo-new d-flex flex-nowrap ">
+      <div className="todo todo-new d-flex flex-nowrap" data-theme={theme}>
 
-        <div className="checkbox">
-          <span class="material-symbols-rounded circle">circle</span>
+        <div className="checkbox d-flex justify-content-center align-items-center">
+          <span className="material-symbols-rounded circle">circle</span>
         </div>
 
-        <div className="todo-input d-flex align-content-center justify-content-center">
-          <TextareaAutosize className="textInput" 
-            defaultValue={"Create a new todo..."}
+        <div className="todo-input d-flex justify-content-center align-items-center">
+          <input type="text" className="textInput" placeholder="Create a new todo..." onKeyDown={handleNewInput} onChange={handleChange} value={todo}></input>
+          {/* <TextareaAutosize className="textInput" 
+            placeholder={"Create a new todo..."}
             style={Styles.textInput}
-          />
+          /> */}
         </div>
 
-        <div className="todo-delete d-flex align-content-center justify-content-center"><span className="material-symbols-sharp deleteIcon p-0 m-0">close</span></div>
+        <div className="todo-delete d-flex justify-content-center align-items-center">
+          <span className="material-symbols-sharp deleteIcon p-0 m-0">close</span>
+        </div>
 
       </div>
 
-      {/* <div className="todo">
-
-
-      </div> */}
-
-      <br></br><br></br>
-      <div className="tempBtn">
-
-        <button onClick={switchTheme}>Switch to {theme=== "light" ? "dark" : "light"} theme</button>
-
-      </div>
 
       </div>
 
