@@ -25,7 +25,6 @@ function App() {
   // state for database data
   const [fromDb, setFromDb] = useState([]);
  
-  console.log("todo", todo);
   console.log("fromDb", fromDb);
 
   // theme switch handler
@@ -50,13 +49,6 @@ function App() {
       putDb(todo);
       getDb().then((data) => {
         setFromDb(data);
-        // console.log("data1", data);
-        // send data to function or have function getDb data...
-        // let dbData = [];
-        // fromDb.map((item) => {
-        // dbData.push({ ...item, id: item.id, text: item.todo })
-        // })
-        // console.log("dbData1", dbData);
       })
       setTodo("");
     }
@@ -66,14 +58,12 @@ function App() {
   useEffect( () => {
     getDb().then((data) => {
       setFromDb(data);
-      console.log("data2", data);
+      // console.log("data2", data);
     })
     // console.log("dbData2", dbData)
     return;
   }, [])
 
-    
-  // console.log("fromDb Inner", fromDb[2].todo, fromDb.id);
 
 
   return (
