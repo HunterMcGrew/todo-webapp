@@ -6,6 +6,8 @@
     --backgroundDark: hsl(235, 21%, 11%);
     --todoBgLight: white;
     --heading-fc: white;
+    --test-Bg: #dad4ed;
+    --test-todos-bg: #f0eef8;
 }
 
 /* dark theme variables */
@@ -32,9 +34,12 @@
 }
 
 .myContainer {
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--backgroundLight);
+    min-height: 100vh;
+    max-height: 100%;
+    width: 100%;
+    /* height: 100%; */
+    /* background-color: var(--backgroundLight); */
+    background-color: var(--test-Bg);
 }
 
 .myContainer[data-theme="dark"] {
@@ -44,7 +49,7 @@
 /* top image */
 .hero {
     background-image: url(../images/bg-mobile-light.jpg);
-    width: 100vw;
+    width: 100%;
     height: 200px;
     background-repeat: no-repeat;
     background-position: 50% 100%;
@@ -53,7 +58,7 @@
 
 .hero[data-theme="dark"] {
     background-image: url(../images/bg-mobile-dark.jpg);
-    width: 100vw;
+    width: 100%;
     height: 200px;
     background-repeat: no-repeat;
     background-position: 10% 100%;
@@ -68,8 +73,8 @@
 /* heading / title */
 .heading {
     position: relative;
-    top: -160px;
-    margin-bottom: -135px;
+    top: -165px;
+    margin-bottom: -145px;
 }
 
 .heading h2, .heading span {
@@ -84,16 +89,27 @@
 
 /* create new todo */
 
-.todoContainer {
+.newTodoContainer {
     width: 325px;
     height: 60px;
     background-color: var(--todoBgLight);
-    border-radius: 6px;
+    border-radius: 8px;
 }
+
+.todoContainer {
+    margin-top: 18px;
+    background-color: var(--todoBgLight);
+    border-radius: 8px; 
+    /* change this border radius */
+}
+
+/* .todoInnerContainer {
+    height: 
+} */
 
 .todo {
     height: 60px;
-    width: 325px;
+    width: inherit;
 }
 
 .checkbox {
@@ -120,6 +136,43 @@
     width: 50px;
 }
 
+.todoHr {
+    width: 1px black;
+    margin: 0;
+}
+
+/* stats & clear */
+.stats {
+    padding: 0px 13px;
+}
+
+.statsText {
+    font-size: 14px;
+}
+
+.filters {
+    margin-top: 18px;
+    background-color: var(--todoBgLight);
+    border-radius: 8px; 
+    height: 60px;
+}
+
+.filterText {
+    margin: 0 4%;
+
+}
+
+/* footer */
+.footer {
+    width: 100%;
+    height: 100px;
+    margin-top: 18px;
+    color: black;
+}
+
+.footer[data-theme="dark"] {
+    color: white;
+}
 
 
 /* from frontend mentor */

@@ -12,8 +12,8 @@ const initDb = async () => {
             console.log("todoHLM database created");
         }
     });
+    
 };
-
 
 // get all from todoHLM Database
 export const getDb = async () => {
@@ -32,19 +32,16 @@ export const getDb = async () => {
 // add new or updated existing item in database
 export const putDb = async (todo) => {
 
-    try {
     const todoDb = await openDB("todoHLM", 1);
     const tx = todoDb.transaction("todoHLM", "readwrite");
     const store = tx.objectStore("todoHLM");
-    const request = store.put({ "todo": todo });
+    const request = store.put({ "todo": todo, "isComplete": false });
     const result = await request;
 
     console.log("putDB must be working...");
 
     return result;
-    } catch (err) {
-        if (err) throw err;
-    }
+
 };
 
 // delete from database
