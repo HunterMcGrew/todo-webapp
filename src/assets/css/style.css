@@ -203,7 +203,7 @@
 
 /* Need to fix landscape on iOS */
 
-@media screen and (min-width: 412px) {
+@media screen and (min-width: 450px) {
     
     /* top image */
     .hero {
