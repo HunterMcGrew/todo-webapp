@@ -9,12 +9,13 @@ import { useState, useEffect } from 'react';
 import { TextareaAutosize } from '@mui/material';
 
 // Database imports
-import { getDb, addDb, putDb, deleteDb } from "./database/database";
+import { getDb, addDb, putDb, deleteDb, getSingle } from "./database/database";
 
 // needs a conditional to not allow BLANK input from user
 
 function App() {
 
+  // All States
   // checks browser default color scheme and used it
   const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const [theme, setTheme] = useLocalStorage("theme", defaultDark ? "dark" : "light");
@@ -25,6 +26,9 @@ function App() {
   const [todo, setTodo] = useState("");
   // state for database data
   const [fromDb, setFromDb] = useState([]);
+  // state for completed todos
+  const [markedComplete, setMarkedComplete] = useState([]);
+  console.log("markedComplete", markedComplete);
  
   console.log("fromDb", fromDb);
 
@@ -76,17 +80,33 @@ function App() {
   // 
   const handleCompleted = (item) => {
     let toUpdate = item;
+    let tempCompletedArr = markedComplete;
+    // console.log("tempCompletedArr before push", tempCompletedArr);
     // console.log("item in update", toUpdate);
     if (toUpdate.checked === "circle") {
       toUpdate.checked = "check_circle";
       toUpdate.isComplete = true;
+      tempCompletedArr.push(item.id);
+      // console.log("pushed to tempCompletedArr in IF...", tempCompletedArr);
     } else {
       toUpdate.checked = "circle";
       toUpdate.isComplete = false;
+      let removeIdx = tempCompletedArr.indexOf(item.id);
+      // console.log("starting to remove from arr...indexOf", removeIdx);
+      tempCompletedArr.splice(removeIdx, 1);
+      // console.log("removing from array...", tempCompletedArr);
     };
+    setMarkedComplete(tempCompletedArr);
     // console.log("updated item", toUpdate);
     putDb(toUpdate, toUpdate.id);
     getDb().then((data) => setFromDb(data));
+  }
+
+  const deleteCompleted = () => {
+    markedComplete.forEach(id => {
+      deleteDb(id);
+      getDb().then((data) => setFromDb(data));
+    })
   }
 
 
@@ -159,7 +179,7 @@ function App() {
           <div className="statsContainer shadow">
             <div className="stats todo d-flex justify-content-between align-items-center">
               <span className="statsText">{fromDb.length} items left</span>
-              <span className="statsText">Clear Completed</span>
+              <span className="statsText" onClick={deleteCompleted}>Clear Completed</span>
             </div>
           </div>
 

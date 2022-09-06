@@ -65,7 +65,7 @@ export const putDb = async (todo, id) => {
 
 };
 
-// delete from database
+// delete single entry from database
 export const deleteDb = async (id) => {
     console.log("todo in delete", id);
     const todoDb = await openDB("todoHLM", 1);
@@ -79,5 +79,19 @@ export const deleteDb = async (id) => {
 
     return result;
 };
+
+// get single entry from DB by ID
+export const getSingle = async (id) => {
+    const todoDb = await openDB("todoHLM", 1);
+    const tx = todoDb.transaction("todoHLM", "readwrite");
+    const store = tx.objectStore("todoHLM");
+    const request = store.get(id);
+    const result = await request;
+
+    console.log("getComplted...");
+    console.log("results...", result)
+    
+    return result;
+}
 
 initDb();
