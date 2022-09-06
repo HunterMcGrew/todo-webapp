@@ -205,6 +205,30 @@
 
 @media screen and (min-width: 412px) {
     
+    /* top image */
+    .hero {
+        background-image: url(../images/bg-desktop-light.jpg);
+        width: 100%;
+        height: 300px;
+        background-repeat: no-repeat;
+        background-position: 50% 100%;
+        background-size: cover;
+}
 
+    .hero[data-theme="dark"] {
+        background-image: url(../images/bg-desktop-dark.jpg);
+        width: 100%;
+        height: 300px;
+        background-repeat: no-repeat;
+        background-position: 10% 100%;
+        background-size: cover;
+}
+
+    .innerContainer {
+        padding: 0 30px;
+        min-width: 325px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
 
 }
