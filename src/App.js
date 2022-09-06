@@ -81,7 +81,7 @@ function App() {
       </div>
 
     {/* new todo container */}
-    <div className="newTodoContainer">
+    <div className="newTodoContainer shadow">
       {/* new todo item */}
       <div className="todo todo-new d-flex flex-nowrap" data-theme={theme}>
 
@@ -93,16 +93,16 @@ function App() {
           <input type="text" className="textInput" placeholder="Create a new todo..." onKeyDown={handleNewInput} onChange={handleChange} value={todo}></input>
         </div>
 
-        <div className="todo-delete d-flex justify-content-center align-items-center">
+        {/* <div className="todo-delete d-flex justify-content-center align-items-center">
           <span className="material-symbols-sharp deleteIcon p-0 m-0">close</span>
-        </div>
+        </div> */}
 
       </div>
       </div>
       {/* end new todo container */}
 
       {/* saved todo's */}
-      <div className="todoContainer">
+      <div className="todoContainer shadow">
         {/* repeat */}
         {fromDb.map((item, i) => {
           console.log("item in map", item)
@@ -116,7 +116,7 @@ function App() {
           </div>
 
           <div className="todo-input d-flex justify-content-center align-items-center">
-            <input type="text" className="textInput" placeholder="Create a new todo..." onKeyDown={handleNewInput} onChange={handleChange} value={item.todo}></input>
+            <input type="text" readOnly="readonly" className="textInput mapped-input" placeholder="Create a new todo..." onKeyDown={handleNewInput} onChange={handleChange} value={item.todo}></input>
           </div>
 
           <div className="todo-delete d-flex justify-content-center align-items-center">

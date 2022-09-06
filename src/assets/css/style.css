@@ -67,7 +67,10 @@
 
 /* inner container */
 .innerContainer {
-    padding: 0 7%;
+    padding: 0 6%;
+    min-width: 325px;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 /* heading / title */
@@ -90,7 +93,8 @@
 /* create new todo */
 
 .newTodoContainer {
-    width: 325px;
+    min-width: 325px;
+    max-width: 600px;
     height: 60px;
     background-color: var(--todoBgLight);
     border-radius: 8px;
@@ -115,10 +119,11 @@
 .checkbox {
     /* margin: 15px 15px; */
     width: 50px;
+    padding: 5px;
 }
 
 .todo-input {
-    width: 225px;
+    width: fill;
 }
 
 .textInput {
@@ -139,6 +144,10 @@
 .todoHr {
     width: 1px black;
     margin: 0;
+}
+
+.mapped-input {
+    cursor: default;
 }
 
 /* stats & clear */
@@ -184,4 +193,12 @@
 
 .attribution a {
     color: hsl(228, 45%, 44%); 
+}
+
+/* media queries for desktop */
+
+@media screen and (min-width: 412px) {
+    
+    
+
 }
