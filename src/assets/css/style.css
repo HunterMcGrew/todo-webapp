@@ -141,6 +141,10 @@
     width: 50px;
 }
 
+.deleteIcon {
+    cursor: pointer;
+}
+
 .todoHr {
     width: 1px black;
     margin: 0;
@@ -197,8 +201,10 @@
 
 /* media queries for desktop */
 
+/* Need to fix landscape on iOS */
+
 @media screen and (min-width: 412px) {
     
-    
+
 
 }

@@ -9,8 +9,9 @@ import { useState, useEffect } from 'react';
 import { TextareaAutosize } from '@mui/material';
 
 // Database imports
-import { getDb, putDb, deleteDb } from "./database/database";
+import { getDb, addDb, putDb, deleteDb } from "./database/database";
 
+// needs a conditional to not allow BLANK input from user
 
 function App() {
 
@@ -46,7 +47,7 @@ function App() {
   // uploads todo to indexDB, reloads all DB data, and stores it in state
   const handleNewInput = e => {
     if (e.key === "Enter") {
-      putDb(todo);
+      addDb(todo);
       getDb().then((data) => {
         setFromDb(data);
       })
@@ -64,7 +65,32 @@ function App() {
     return;
   }, [])
 
+  // deletes todo when clickin gthe X and refreshed the state database data is stored in
+  const handleDelete = (id) => {
+    let toDelete = id;
+    console.log("toDelete", toDelete);
+    deleteDb(id);
+    getDb().then((data) => setFromDb(data));
+  }
 
+  // 
+  const handleCompleted = (item) => {
+    let toUpdate = item;
+    // console.log("item in update", toUpdate);
+    if (toUpdate.checked === "circle") {
+      toUpdate.checked = "check_circle";
+      toUpdate.isComplete = true;
+    } else {
+      toUpdate.checked = "circle";
+      toUpdate.isComplete = false;
+    };
+    // console.log("updated item", toUpdate);
+    putDb(toUpdate, toUpdate.id);
+    getDb().then((data) => setFromDb(data));
+  }
+
+
+  
 
   return (
     
@@ -102,25 +128,26 @@ function App() {
       {/* end new todo container */}
 
       {/* saved todo's */}
-      <div className="todoContainer shadow">
+      <div className="todoContainer shadow-sm">
         {/* repeat */}
+
         {fromDb.map((item, i) => {
-          console.log("item in map", item)
+          console.log("item in map", item,);
           return (
 
             <div className="todoInnerContainer">
           <div className="todo todo-new d-flex flex-nowrap" data-theme={theme} key={i}>
 
           <div className="checkbox d-flex justify-content-center align-items-center">
-            <span className="material-symbols-rounded circle">circle</span>
+            <span className="material-symbols-rounded circle" onClick={() => handleCompleted(item)} >{item.checked}</span>
           </div>
 
           <div className="todo-input d-flex justify-content-center align-items-center">
-            <input type="text" readOnly="readonly" className="textInput mapped-input" placeholder="Create a new todo..." onKeyDown={handleNewInput} onChange={handleChange} value={item.todo}></input>
+            <input type="text" readOnly="readonly" className="textInput mapped-input" placeholder="Create a new todo..." value={item.todo}></input>
           </div>
 
           <div className="todo-delete d-flex justify-content-center align-items-center">
-            <span className="material-symbols-sharp deleteIcon p-0 m-0">close</span>
+            <span className="material-symbols-sharp deleteIcon p-0 m-0" onClick={() => handleDelete(item.id)}>close</span>
           </div>
 
           </div>
@@ -129,7 +156,7 @@ function App() {
 
         )})}
 
-          <div className="statsContainer">
+          <div className="statsContainer shadow">
             <div className="stats todo d-flex justify-content-between align-items-center">
               <span className="statsText">{fromDb.length} items left</span>
               <span className="statsText">Clear Completed</span>
@@ -140,7 +167,7 @@ function App() {
       {/* end todo container */}
 
       {/* filters */}
-      <div className="filterContainer">
+      <div className="filterContainer shadow">
 
         <div className="filters d-flex justify-content-center align-items-center">
           <span className="filterText">All</span>

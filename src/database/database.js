@@ -30,12 +30,33 @@ export const getDb = async () => {
 };
 
 // add new or updated existing item in database
-export const putDb = async (todo) => {
+export const addDb = async (todo) => {
 
     const todoDb = await openDB("todoHLM", 1);
     const tx = todoDb.transaction("todoHLM", "readwrite");
     const store = tx.objectStore("todoHLM");
-    const request = store.put({ "todo": todo, "isComplete": false });
+    const request = store.put({ "todo": todo, "isComplete": false, "checked": "circle" });
+    const result = await request;
+
+    console.log("putDB must be working...");
+
+    return result;
+
+};
+
+// updates item in Database (ex: if it's completed or not)
+export const putDb = async (todo, id) => {
+
+    const todoDb = await openDB("todoHLM", 1);
+    const tx = todoDb.transaction("todoHLM", "readwrite");
+    const store = tx.objectStore("todoHLM");
+    const update = await store.get(id);
+    console.log("update", update);
+    store.onsucess = () => {
+        const data = update.result;
+        console.log("data", data);
+    }
+    const request = store.put(todo);
     const result = await request;
 
     console.log("putDB must be working...");
@@ -45,13 +66,14 @@ export const putDb = async (todo) => {
 };
 
 // delete from database
-export const deleteDb = async (event) => {
-
+export const deleteDb = async (id) => {
+    console.log("todo in delete", id);
     const todoDb = await openDB("todoHLM", 1);
     const tx = todoDb.transaction("todoHLM", "readwrite");
     const store = tx.objectStore("todoHLM");
-    const reqeust = store.delete({ "todo": "todo" });
-    const result = await reqeust;
+    // const reqeust = store.delete({ "todo": todo });
+    const request = store.delete(id);
+    const result = await request;
 
     console.log("deleteDB must be working...");
 
