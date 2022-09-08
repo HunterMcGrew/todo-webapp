@@ -197,30 +197,6 @@ function App() {
         <Todo item={item} i={i} theme={theme} handleCompleted={handleCompleted} handleDelete={handleDelete} />
           )})}
 
-        {/* {allDb.map((item, i) => {
-          // console.log("item in map", item,);
-          return (
-
-            <div className="todoInnerContainer">
-          <div className="todo todo-new d-flex flex-nowrap" data-theme={theme} key={i}>
-
-          <div className="checkbox d-flex justify-content-center align-items-center">
-            <span className="material-symbols-rounded circle" onClick={() => handleCompleted(item)} >{item.checked}</span>
-          </div>
-
-          <div className="todo-input d-flex justify-content-center align-items-center">
-            <input type="text" readOnly="readonly" className="textInput mapped-input" data-theme={theme} placeholder="Create a new todo..." value={item.todo}></input>
-          </div>
-
-          <div className="todo-delete d-flex justify-content-center align-items-center">
-            <span className="material-symbols-sharp deleteIcon p-0 m-0" onClick={() => handleDelete(item.id)}>close</span>
-          </div>
-
-          </div>
-          <hr className="todoHr"></hr>
-          </div>
-
-        )})} */}
 
           <div className="statsContainer shadow">
             <div className="stats todo d-flex justify-content-between align-items-center"  data-theme={theme}>
