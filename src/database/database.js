@@ -8,7 +8,7 @@ const initDb = async () => {
                 return;
             }
             const store = db.createObjectStore("todoHLM", { keyPath: "id", autoIncrement: true });
-            store.createIndex("todo", "todo");
+            store.createIndex("todo", "isComplete");
             console.log("todoHLM database created");
         }
     });
@@ -51,7 +51,7 @@ export const putDb = async (todo, id) => {
     const tx = todoDb.transaction("todoHLM", "readwrite");
     const store = tx.objectStore("todoHLM");
     const update = await store.get(id);
-    console.log("update", update);
+    // console.log("update", update);
     store.onsucess = () => {
         const data = update.result;
         console.log("data", data);
@@ -79,19 +79,5 @@ export const deleteDb = async (id) => {
 
     return result;
 };
-
-// get single entry from DB by ID
-export const getSingle = async (id) => {
-    const todoDb = await openDB("todoHLM", 1);
-    const tx = todoDb.transaction("todoHLM", "readwrite");
-    const store = tx.objectStore("todoHLM");
-    const request = store.get(id);
-    const result = await request;
-
-    console.log("getComplted...");
-    console.log("results...", result)
-    
-    return result;
-}
 
 initDb();

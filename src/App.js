@@ -6,10 +6,10 @@ import useLocalStorage from 'use-local-storage'
 import { useState, useEffect } from 'react';
 
 // component imports
-import { TextareaAutosize } from '@mui/material';
+import Todo from "./components/Todo";
 
 // Database imports
-import { getDb, addDb, putDb, deleteDb, getSingle } from "./database/database";
+import { getDb, addDb, putDb, deleteDb, getActiveDb } from "./database/database";
 
 // needs a conditional to not allow BLANK input from user
 
@@ -25,12 +25,17 @@ function App() {
   // state for new todo inputs
   const [todo, setTodo] = useState("");
   // state for database data
-  const [fromDb, setFromDb] = useState([]);
+  const [allDb, setAllDb] = useState([]);
   // state for completed todos
   const [markedComplete, setMarkedComplete] = useState([]);
   console.log("markedComplete", markedComplete);
+  // state for database filtering
+  const [dbFilter, setDbFilter] = useState("")
  
-  console.log("fromDb", fromDb);
+  console.log("allDb", allDb);
+  console.log("dbFilter", dbFilter);
+
+
 
   // theme switch handler
   const switchTheme = () => {
@@ -53,7 +58,7 @@ function App() {
     if (e.key === "Enter") {
       addDb(todo);
       getDb().then((data) => {
-        setFromDb(data);
+        setAllDb(data);
       })
       setTodo("");
     }
@@ -61,8 +66,9 @@ function App() {
   
   // loads all DB data that is stored on page load to keep it up to date
   useEffect( () => {
+    setDbFilter("all");
     getDb().then((data) => {
-      setFromDb(data);
+      setAllDb(data);
       // console.log("data2", data);
     })
     // console.log("dbData2", dbData)
@@ -74,42 +80,76 @@ function App() {
     let toDelete = id;
     console.log("toDelete", toDelete);
     deleteDb(id);
-    getDb().then((data) => setFromDb(data));
+    getDb().then((data) => setAllDb(data));
   }
 
-  // 
+  // upon marking a todo complete, update related database info for item and completed state
   const handleCompleted = (item) => {
     let toUpdate = item;
-    let tempCompletedArr = markedComplete;
+    // let tempCompletedArr = markedComplete;
     // console.log("tempCompletedArr before push", tempCompletedArr);
     // console.log("item in update", toUpdate);
     if (toUpdate.checked === "circle") {
       toUpdate.checked = "check_circle";
       toUpdate.isComplete = true;
-      tempCompletedArr.push(item.id);
+      markedComplete.push(item.id);
       // console.log("pushed to tempCompletedArr in IF...", tempCompletedArr);
     } else {
       toUpdate.checked = "circle";
       toUpdate.isComplete = false;
-      let removeIdx = tempCompletedArr.indexOf(item.id);
+      let removeIdx = markedComplete.indexOf(item.id);
       // console.log("starting to remove from arr...indexOf", removeIdx);
-      tempCompletedArr.splice(removeIdx, 1);
+      markedComplete.splice(removeIdx, 1);
       // console.log("removing from array...", tempCompletedArr);
     };
-    setMarkedComplete(tempCompletedArr);
     // console.log("updated item", toUpdate);
+    // setMarkedComplete(tempCompletedArr);
     putDb(toUpdate, toUpdate.id);
-    getDb().then((data) => setFromDb(data));
+    getDb().then((data) => setAllDb(data));
+ 
   }
 
   const deleteCompleted = () => {
+    if (markedComplete.length === 0) return;
+    let deletion = [];
     markedComplete.forEach(id => {
+      deletion.push(id);
+      console.log("deletion", deletion);
       deleteDb(id);
-      getDb().then((data) => setFromDb(data));
     })
+    deletion.forEach(n => {
+      let tempArr = markedComplete.filter(entry => entry !== n);
+      // console.log("tempArr in", tempArr);
+    })
+    setMarkedComplete("");
+    getDb().then((data) => setAllDb(data));
   }
 
+  // get all from database
+  const getAll = () => {
+    getDb().then((data) => setAllDb(data));
+  }
 
+  // get active (non complete) database 
+  const getActive = () => {
+    // setDbFilter("active");
+    if (markedComplete === 0) return;
+    let activeArr = []
+    let indexArr = [];
+    // id's in markedComplete are just numbers so...
+    // need a better way to actually find the INDEX from allDb
+    markedComplete.forEach(id => {
+      console.log("id", id);
+      let index = allDb.forEach(entry => entry.find(id))
+      indexArr.push(index);
+    })
+    console.log("indexArr", indexArr);
+    console.log("activeArr", activeArr);
+    // setAllDb(activeArr);
+
+  }
+  
+  // get completed database
   
 
   return (
@@ -127,7 +167,7 @@ function App() {
       </div>
 
     {/* new todo container */}
-    <div className="newTodoContainer shadow">
+    <div className="newTodoContainer shadow" data-theme={theme}>
       {/* new todo item */}
       <div className="todo todo-new d-flex flex-nowrap" data-theme={theme}>
 
@@ -136,7 +176,7 @@ function App() {
         </div>
 
         <div className="todo-input d-flex justify-content-center align-items-center">
-          <input type="text" className="textInput" placeholder="Create a new todo..." onKeyDown={handleNewInput} onChange={handleChange} value={todo}></input>
+          <input type="text" className="textInput" placeholder="Create a new todo..." data-theme={theme} onKeyDown={handleNewInput} onChange={handleChange} value={todo}></input>
         </div>
 
         {/* <div className="todo-delete d-flex justify-content-center align-items-center">
@@ -148,11 +188,17 @@ function App() {
       {/* end new todo container */}
 
       {/* saved todo's */}
-      <div className="todoContainer shadow-sm">
+      <div className="todoContainer shadow-sm" data-theme={theme}>
         {/* repeat */}
 
-        {fromDb.map((item, i) => {
-          console.log("item in map", item,);
+        {allDb.map((item, i) => {
+          // console.log("item in map", item,);
+          return (
+        <Todo item={item} i={i} theme={theme} handleCompleted={handleCompleted} handleDelete={handleDelete} />
+          )})}
+
+        {/* {allDb.map((item, i) => {
+          // console.log("item in map", item,);
           return (
 
             <div className="todoInnerContainer">
@@ -163,7 +209,7 @@ function App() {
           </div>
 
           <div className="todo-input d-flex justify-content-center align-items-center">
-            <input type="text" readOnly="readonly" className="textInput mapped-input" placeholder="Create a new todo..." value={item.todo}></input>
+            <input type="text" readOnly="readonly" className="textInput mapped-input" data-theme={theme} placeholder="Create a new todo..." value={item.todo}></input>
           </div>
 
           <div className="todo-delete d-flex justify-content-center align-items-center">
@@ -174,12 +220,12 @@ function App() {
           <hr className="todoHr"></hr>
           </div>
 
-        )})}
+        )})} */}
 
           <div className="statsContainer shadow">
-            <div className="stats todo d-flex justify-content-between align-items-center">
-              <span className="statsText">{fromDb.length} items left</span>
-              <span className="statsText" onClick={deleteCompleted}>Clear Completed</span>
+            <div className="stats todo d-flex justify-content-between align-items-center"  data-theme={theme}>
+              <span className="statsText"  data-theme={theme}>{allDb.length} items left</span>
+              <span className="statsText" onClick={deleteCompleted}  data-theme={theme}>Clear Completed</span>
             </div>
           </div>
 
@@ -190,9 +236,9 @@ function App() {
       <div className="filterContainer shadow">
 
         <div className="filters d-flex justify-content-center align-items-center">
-          <span className="filterText">All</span>
-          <span className="filterText">Active</span>
-          <span className="filterText">Completed</span>
+          <span className="filterText activeFilter" data-theme={theme} onClick={getAll}>All</span>
+          <span className="filterText" data-theme={theme} onClick={getActive}>Active</span>
+          <span className="filterText" data-theme={theme}>Completed</span>
         </div>
 
       </div>
