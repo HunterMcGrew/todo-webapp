@@ -159,6 +159,7 @@
     /* margin: 15px 15px; */
     width: 50px;
     padding: 5px;
+    cursor: pointer;
 }
 
 .todo-input {

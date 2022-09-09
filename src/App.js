@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import Todo from "./components/Todo";
 
 // Database imports
-import { getDb, addDb, putDb, deleteDb, getActiveDb } from "./database/database";
+import { getDb, addDb, putDb, deleteDb } from "./database/database";
 
 // needs a conditional to not allow BLANK input from user
 
@@ -29,10 +29,13 @@ function App() {
   // state for completed todos
   const [markedComplete, setMarkedComplete] = useState([]);
   console.log("markedComplete", markedComplete);
+  // active database backup
+  const [allDbBackup, setAllDbBackup] = useState([]);
   // state for database filtering
   const [dbFilter, setDbFilter] = useState("")
  
   console.log("allDb", allDb);
+  console.log("allDbBackup", allDbBackup);
   console.log("dbFilter", dbFilter);
 
 
@@ -66,6 +69,7 @@ function App() {
   
   // loads all DB data that is stored on page load to keep it up to date
   useEffect( () => {
+    console.log("useEffect running");
     setDbFilter("all");
     getDb().then((data) => {
       setAllDb(data);
@@ -92,12 +96,16 @@ function App() {
     if (toUpdate.checked === "circle") {
       toUpdate.checked = "check_circle";
       toUpdate.isComplete = true;
-      markedComplete.push(item.id);
+      // pushing whole item instead of item.id
+      markedComplete.push(item);
+      // markedComplete.push(item.id);
       // console.log("pushed to tempCompletedArr in IF...", tempCompletedArr);
     } else {
       toUpdate.checked = "circle";
       toUpdate.isComplete = false;
-      let removeIdx = markedComplete.indexOf(item.id);
+      let removeIdx = markedComplete.indexOf(item);
+      // removing whole item instead of item.id
+      // let removeIdx = markedComplete.indexOf(item.id);
       // console.log("starting to remove from arr...indexOf", removeIdx);
       markedComplete.splice(removeIdx, 1);
       // console.log("removing from array...", tempCompletedArr);
@@ -112,13 +120,13 @@ function App() {
   const deleteCompleted = () => {
     if (markedComplete.length === 0) return;
     let deletion = [];
-    markedComplete.forEach(id => {
-      deletion.push(id);
+    markedComplete.forEach(item => {
+      deletion.push(item.id);
       console.log("deletion", deletion);
-      deleteDb(id);
+      deleteDb(item.id);
     })
     deletion.forEach(n => {
-      let tempArr = markedComplete.filter(entry => entry !== n);
+      let tempArr = markedComplete.filter(entry => entry.id !== n);
       // console.log("tempArr in", tempArr);
     })
     setMarkedComplete("");
@@ -128,28 +136,44 @@ function App() {
   // get all from database
   const getAll = () => {
     getDb().then((data) => setAllDb(data));
+    setAllDbBackup(allDb);
+    setDbFilter("all");
   }
 
   // get active (non complete) database 
-  const getActive = () => {
-    // setDbFilter("active");
-    if (markedComplete === 0) return;
-    let activeArr = []
-    let indexArr = [];
-    // id's in markedComplete are just numbers so...
-    // need a better way to actually find the INDEX from allDb
-    markedComplete.forEach(id => {
-      console.log("id", id);
-      let index = allDb.forEach(entry => entry.find(id))
-      indexArr.push(index);
-    })
-    console.log("indexArr", indexArr);
-    console.log("activeArr", activeArr);
-    // setAllDb(activeArr);
+  const getActive = async () => {
+    console.log("get active running");
+    let tempArr = [];
+    // if (markedComplete === 0) return;
+    if (dbFilter === "completed") {
+      allDbBackup.forEach(item => {
+        console.log("in loop", item);
+        if (item.isComplete === false) tempArr.push(item);
+      })
+      setDbFilter("active");
+      setAllDb(tempArr);
+      return;
+    } else {
+      allDb.forEach(item => {
+        console.log("in loop", item);
+        if (item.isComplete === false) tempArr.push(item);
+      })
+      setDbFilter("active");
+      console.log("tempArr", tempArr);
+      setAllDb(tempArr);
+    }
+  }
 
+  // getAll isn't completing before for loop iterates. 
+
+
+  const getCompleted = () => {
+    if (allDb > markedComplete) setAllDbBackup(allDb);
+    console.log("get completed running");
+    setDbFilter("completed");
+    setAllDb(markedComplete);
   }
   
-  // get completed database
   
 
   return (
@@ -190,12 +214,13 @@ function App() {
       {/* saved todo's */}
       <div className="todoContainer shadow-sm" data-theme={theme}>
         {/* repeat */}
-
-        {allDb.map((item, i) => {
-          // console.log("item in map", item,);
-          return (
-        <Todo item={item} i={i} theme={theme} handleCompleted={handleCompleted} handleDelete={handleDelete} />
-          )})}
+  
+            {allDb.map((item, i) => {
+              // console.log("item in map", item,);
+              return (
+            <Todo item={item} i={i} theme={theme} handleCompleted={handleCompleted} handleDelete={handleDelete} />
+              )})}
+        
 
 
           <div className="statsContainer shadow">
@@ -214,7 +239,7 @@ function App() {
         <div className="filters d-flex justify-content-center align-items-center">
           <span className="filterText activeFilter" data-theme={theme} onClick={getAll}>All</span>
           <span className="filterText" data-theme={theme} onClick={getActive}>Active</span>
-          <span className="filterText" data-theme={theme}>Completed</span>
+          <span className="filterText" data-theme={theme} onClick={getCompleted}>Completed</span>
         </div>
 
       </div>
