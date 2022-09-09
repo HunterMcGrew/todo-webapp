@@ -3,9 +3,6 @@
 const Todo = (props) => {
     console.log("props in todo", props);
 
-    if (!props.item && props.dbFilter === "completed" ) {
-      return;
-    } else {
       return (
 
         <div className="todoInnerContainer">
@@ -28,8 +25,6 @@ const Todo = (props) => {
       </div>
 
     )
-
-    }
 
 }
 
