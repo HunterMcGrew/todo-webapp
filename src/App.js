@@ -73,6 +73,7 @@ function App() {
     setDbFilter("all");
     getDb().then((data) => {
       setAllDb(data);
+      setAllDbBackup(data);
       // console.log("data2", data);
     })
     // console.log("dbData2", dbData)
@@ -135,16 +136,21 @@ function App() {
 
   // get all from database
   const getAll = () => {
-    getDb().then((data) => setAllDb(data));
-    setAllDbBackup(allDb);
-    setDbFilter("all");
+    getDb().then((data) => {
+      setAllDb(data);
+      setAllDbBackup(allDb);
+      setDbFilter("all");
+    })
   }
+
+  // above then method should be useful in later functions, 
+  // therefore not needing the allDbBackup state.
 
   // get active (non complete) database 
   const getActive = async () => {
     console.log("get active running");
     let tempArr = [];
-    // if (markedComplete === 0) return;
+    if (dbFilter === "active") return;
     if (dbFilter === "completed") {
       allDbBackup.forEach(item => {
         console.log("in loop", item);
@@ -168,6 +174,7 @@ function App() {
 
 
   const getCompleted = () => {
+    if (dbFilter === "completed") return;
     if (allDb > markedComplete) setAllDbBackup(allDb);
     console.log("get completed running");
     setDbFilter("completed");
