@@ -137,7 +137,7 @@ function App() {
   // get all from database
   const getAll = () => {
     getDb().then((data) => {
-      setAllDb(data);
+      setAllDb(data)
       setAllDbBackup(allDb);
       setDbFilter("all");
     })
@@ -148,6 +148,7 @@ function App() {
 
   // get active (non complete) database 
   const getActive = async () => {
+    setAllDbBackup(allDb);
     console.log("get active running");
     let tempArr = [];
     if (dbFilter === "active") return;
@@ -174,6 +175,7 @@ function App() {
 
 
   const getCompleted = () => {
+    setAllDbBackup(allDb);
     if (dbFilter === "completed") return;
     if (allDb > markedComplete) setAllDbBackup(allDb);
     console.log("get completed running");
