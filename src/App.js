@@ -143,9 +143,6 @@ function App() {
     })
   }
 
-  // above then method should be useful in later functions, 
-  // therefore not needing the allDbBackup state.
-
   // get active (non complete) database 
   const getActive = async () => {
     setAllDbBackup(allDb);
@@ -175,6 +172,7 @@ function App() {
 
 
   const getCompleted = () => {
+    if (allDbBackup < allDb)
     setAllDbBackup(allDb);
     if (dbFilter === "completed") return;
     if (allDb > markedComplete) setAllDbBackup(allDb);
@@ -231,7 +229,7 @@ function App() {
               )})}
         
 
-
+                {/* Turn into component */}
           <div className="statsContainer shadow">
             <div className="stats todo d-flex justify-content-between align-items-center"  data-theme={theme}>
               <span className="statsText"  data-theme={theme}>{allDb.length} items left</span>
@@ -242,6 +240,7 @@ function App() {
       </div>
       {/* end todo container */}
 
+                {/* Turn into component */}
       {/* filters */}
       <div className="filterContainer shadow">
 
