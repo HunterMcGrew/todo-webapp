@@ -114,7 +114,11 @@ function App() {
     // console.log("updated item", toUpdate);
     // setMarkedComplete(tempCompletedArr);
     putDb(toUpdate, toUpdate.id);
-    getDb().then((data) => setAllDb(data));
+    getDb().then((data) => {
+      setAllDb(data);
+      setAllDbBackup(data);
+      // console.log("data2", data);
+    })
  
   }
 
@@ -130,7 +134,7 @@ function App() {
       let tempArr = markedComplete.filter(entry => entry.id !== n);
       // console.log("tempArr in", tempArr);
     })
-    setMarkedComplete("");
+    setMarkedComplete([]);
     getDb().then((data) => setAllDb(data));
   }
 
@@ -225,7 +229,7 @@ function App() {
             {allDb.map((item, i) => {
               // console.log("item in map", item,);
               return (
-            <Todo item={item} i={i} theme={theme} handleCompleted={handleCompleted} handleDelete={handleDelete} />
+            <Todo item={item} i={i} theme={theme} handleCompleted={handleCompleted} handleDelete={handleDelete} dbFilter={dbFilter} />
               )})}
         
 
