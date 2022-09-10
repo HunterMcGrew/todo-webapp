@@ -1,7 +1,8 @@
-
+import { useRef } from "react";
 
 const Todo = (props) => {
     // console.log("props in todo", props);
+    const checked = useRef(null);
 
       return (
 
@@ -9,7 +10,7 @@ const Todo = (props) => {
       <div className="todo todo-new d-flex flex-nowrap" data-theme={props.theme} key={props.i}>
 
       <div className="checkbox d-flex justify-content-center align-items-center">
-        <span className="material-symbols-rounded circle" data-theme={props.theme} onClick={() => props.handleCompleted(props.item)} >{props.item.checked}</span>
+        <span className="material-symbols-rounded cirlce checked" ref={checked} data-theme={props.theme} onClick={() => props.handleCompleted(props.item)} >{props.item.checked}</span>
       </div>
 
       <div className="todo-input d-flex justify-content-center align-items-center">
