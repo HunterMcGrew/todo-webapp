@@ -74,6 +74,12 @@ function App() {
     setDbFilter("all");
     getDb().then((data) => {
       setAllDb(data);
+      // on page load sends markedComplete data to state
+      let tempArr = [];
+      data.forEach(item => {
+        if (item.isComplete === true) tempArr.push(item);
+      })
+      setMarkedComplete(tempArr);
       setAllDbBackup(data);
       setDbFilter("all")
       // console.log("data2", data);
@@ -97,7 +103,7 @@ function App() {
     // console.log("tempCompletedArr before push", tempCompletedArr);
     // console.log("item in update", toUpdate);
     if (toUpdate.checked === "circle") {
-      toUpdate.checked = "check_circle";
+      toUpdate.checked = "done";
       toUpdate.isComplete = true;
       // pushing whole item instead of item.id
       markedComplete.push(item);
@@ -143,7 +149,7 @@ function App() {
   // get all from database
   const getAll = () => {
     getDb().then((data) => {
-      setAllDb(data)
+      setAllDb(data);
       setAllDbBackup(allDb);
       setDbFilter("all");
     })
