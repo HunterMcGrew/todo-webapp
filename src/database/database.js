@@ -35,7 +35,7 @@ export const addDb = async (todo) => {
     const todoDb = await openDB("todoHLM", 1);
     const tx = todoDb.transaction("todoHLM", "readwrite");
     const store = tx.objectStore("todoHLM");
-    const request = store.put({ "todo": todo, "isComplete": false, "checked": "circle" });
+    const request = store.put({ "todo": todo, "isComplete": false, "checked": "circle" , "checked2": "textInput"});
     const result = await request;
 
     // console.log("putDB must be working...");

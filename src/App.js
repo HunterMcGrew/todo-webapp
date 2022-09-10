@@ -104,6 +104,7 @@ function App() {
     // console.log("item in update", toUpdate);
     if (toUpdate.checked === "circle") {
       toUpdate.checked = "done";
+      toUpdate.checked2 = "textInputChecked"
       toUpdate.isComplete = true;
       // pushing whole item instead of item.id
       markedComplete.push(item);
@@ -111,6 +112,7 @@ function App() {
       // console.log("pushed to tempCompletedArr in IF...", tempCompletedArr);
     } else {
       toUpdate.checked = "circle";
+      toUpdate.checked2 = "textInput";
       toUpdate.isComplete = false;
       let removeIdx = markedComplete.indexOf(item);
       // removing whole item instead of item.id

@@ -35,7 +35,7 @@ const Todo = (props) => {
       </div>
 
       <div className="todo-input d-flex justify-content-center align-items-center">
-        <input type="text" readOnly="readonly" ref={inputChecked} className="mapped-input textInput" data-theme={props.theme} placeholder="Create a new todo..." value={props.item.todo}></input>
+        <input type="text" readOnly="readonly" ref={inputChecked} className={`mapped-input ${props.item.checked2}`} data-theme={props.theme} placeholder="Create a new todo..." value={props.item.todo}></input>
       </div>
 
       <div className="todo-delete d-flex justify-content-center align-items-center">
