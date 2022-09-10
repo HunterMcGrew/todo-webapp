@@ -29,15 +29,15 @@ function App() {
   const [allDb, setAllDb] = useState([]);
   // state for completed todos
   const [markedComplete, setMarkedComplete] = useState([]);
-  console.log("markedComplete", markedComplete);
   // active database backup
   const [allDbBackup, setAllDbBackup] = useState([]);
   // state for database filtering
   const [dbFilter, setDbFilter] = useState("")
- 
-  console.log("allDb", allDb);
-  console.log("allDbBackup", allDbBackup);
-  console.log("dbFilter", dbFilter);
+  
+  // console.log("allDb", allDb);
+  // console.log("allDbBackup", allDbBackup);
+  // console.log("markedComplete", markedComplete);
+  // console.log("dbFilter", dbFilter);
 
 
 
@@ -59,7 +59,7 @@ function App() {
 
   // uploads todo to indexDB, reloads all DB data, and stores it in state
   const handleNewInput = e => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && todo !== "") {
       addDb(todo);
       getDb().then((data) => {
         setAllDb(data);
@@ -70,7 +70,7 @@ function App() {
   
   // loads all DB data that is stored on page load to keep it up to date
   useEffect( () => {
-    console.log("useEffect running");
+    // console.log("useEffect running");
     setDbFilter("all");
     getDb().then((data) => {
       setAllDb(data);
@@ -85,7 +85,7 @@ function App() {
   // deletes todo when clickin gthe X and refreshed the state database data is stored in
   const handleDelete = (id) => {
     let toDelete = id;
-    console.log("toDelete", toDelete);
+    // console.log("toDelete", toDelete);
     deleteDb(id);
     getDb().then((data) => setAllDb(data));
   }
@@ -129,7 +129,7 @@ function App() {
     let deletion = [];
     markedComplete.forEach(item => {
       deletion.push(item.id);
-      console.log("deletion", deletion);
+      // console.log("deletion", deletion);
       deleteDb(item.id);
     })
     deletion.forEach(n => {
@@ -152,12 +152,12 @@ function App() {
   // get active (non complete) database 
   const getActive = () => {
     setAllDbBackup(allDb);
-    console.log("get active running");
+    // console.log("get active running");
     let tempArr = [];
     if (dbFilter === "active") return;
     if (dbFilter === "completed") {
       allDbBackup.forEach(item => {
-        console.log("in loop", item);
+        // console.log("in loop", item);
         if (item.isComplete === false) tempArr.push(item);
       })
       setDbFilter("active");
@@ -165,11 +165,11 @@ function App() {
       return;
     } else {
       allDb.forEach(item => {
-        console.log("in loop", item);
+        // console.log("in loop", item);
         if (item.isComplete === false) tempArr.push(item);
       })
       setDbFilter("active");
-      console.log("tempArr", tempArr);
+      // console.log("tempArr", tempArr);
       setAllDb(tempArr);
     }
   }
@@ -182,7 +182,7 @@ function App() {
     setAllDbBackup(allDb);
     if (dbFilter === "completed") return;
     if (allDb > markedComplete) setAllDbBackup(allDb);
-    console.log("get completed running");
+    // console.log("get completed running");
     setDbFilter("completed");
     setAllDb(markedComplete);
   }
@@ -263,12 +263,6 @@ function App() {
           getCompleted={getCompleted} 
           dbFilter={dbFilter}
         />
-
-        {/* <div className="filters d-flex justify-content-center align-items-center">
-          <span className="filterText activeFilter" data-theme={theme} onClick={getAll}>All</span>
-          <span className="filterText" data-theme={theme} onClick={getActive}>Active</span>
-          <span className="filterText" data-theme={theme} onClick={getCompleted}>Completed</span>
-        </div> */}
 
       </div>
       {/* end filters container */}

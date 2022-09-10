@@ -24,7 +24,7 @@ export const getDb = async () => {
     const request = store.getAll();
     const result = await request;
 
-    console.log("getDb route working!");
+    // console.log("getDb route working!");
 
     return result;
 };
@@ -38,7 +38,7 @@ export const addDb = async (todo) => {
     const request = store.put({ "todo": todo, "isComplete": false, "checked": "circle" });
     const result = await request;
 
-    console.log("putDB must be working...");
+    // console.log("putDB must be working...");
 
     return result;
 
@@ -54,12 +54,12 @@ export const putDb = async (todo, id) => {
     // console.log("update", update);
     store.onsucess = () => {
         const data = update.result;
-        console.log("data", data);
+        // console.log("data", data);
     }
     const request = store.put(todo);
     const result = await request;
 
-    console.log("putDB must be working...");
+    // console.log("putDB must be working...");
 
     return result;
 
@@ -75,7 +75,7 @@ export const deleteDb = async (id) => {
     const request = store.delete(id);
     const result = await request;
 
-    console.log("deleteDB must be working...");
+    // console.log("deleteDB must be working...");
 
     return result;
 };

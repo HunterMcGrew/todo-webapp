@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 const Filters = props => {
 
-    console.log("filters props", props);
+    // console.log("filters props", props);
 
     const all = useRef(null);
     const active = useRef(null);
@@ -18,9 +18,7 @@ const Filters = props => {
             classArr.remove("activeFilter")
         }
         props.getAll();
-        console.log("all", all.current);
         let classArr = all.current.classList;
-        console.log("classArr", classArr);
         if (classArr > 1) {
             return;
         } else {
@@ -44,7 +42,6 @@ const Filters = props => {
         } else {
             classArr.add("activeFilter");
         }
-        console.log("active", classArr)
     }
 
     const completedFunc = () => {
@@ -63,7 +60,6 @@ const Filters = props => {
         } else {
             classArr.add("activeFilter");
         }
-        console.log("completed", classArr);
     }
 
     return (

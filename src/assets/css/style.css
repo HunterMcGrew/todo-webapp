@@ -242,12 +242,14 @@
     margin: 0 7%;
     font-weight: 600;
     color: var(--filterFont);
+    cursor: pointer;
 }
 
 .filterText[data-theme="dark"] {
     margin: 0 7%;
     font-weight: 600;
     color: var(--filterFont);
+    cursor: pointer;
 }
 
 .activeFilter {
