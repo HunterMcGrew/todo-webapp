@@ -67,7 +67,6 @@ export const putDb = async (todo, id) => {
 
 // delete single entry from database
 export const deleteDb = async (id) => {
-    console.log("todo in delete", id);
     const todoDb = await openDB("todoHLM", 1);
     const tx = todoDb.transaction("todoHLM", "readwrite");
     const store = tx.objectStore("todoHLM");

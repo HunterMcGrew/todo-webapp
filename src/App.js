@@ -1,18 +1,17 @@
 // basic imports
 import React from 'react';
 import "./assets/css/style.css"
-import Styles from "./assets/css/style.css";
 import useLocalStorage from 'use-local-storage'
 import { useState, useEffect } from 'react';
 
 // component imports
 import Todo from "./components/Todo";
+import Stats from "./components/Stats";
 import Filters from "./components/Filters";
 
 // Database imports
 import { getDb, addDb, putDb, deleteDb } from "./database/database";
 
-// needs a conditional to not allow BLANK input from user
 
 function App() {
 
@@ -182,8 +181,6 @@ function App() {
     }
   }
 
-  // getAll isn't completing before for loop iterates. 
-
 
   const getCompleted = () => {
     if (allDbBackup < allDb)
@@ -251,16 +248,18 @@ function App() {
 
                 {/* Turn into component */}
           <div className="statsContainer shadow">
-            <div className="stats todo d-flex justify-content-between align-items-center"  data-theme={theme}>
-              <span className="statsText"  data-theme={theme}>{allDb.length} items left</span>
-              <span className="statsText" onClick={deleteCompleted}  data-theme={theme}>Clear Completed</span>
-            </div>
+
+            <Stats 
+              theme={theme}
+              allDb={allDb}
+              deleteCompleted={deleteCompleted}
+            />
+            
           </div>
 
       </div>
       {/* end todo container */}
 
-                {/* Turn into component */}
       {/* filters */}
       <div className="filterContainer shadow">
 

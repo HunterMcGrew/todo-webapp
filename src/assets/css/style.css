@@ -295,6 +295,10 @@
     color: var(--fontStats);
 }
 
+.clearBtn {
+    cursor: pointer;
+}
+
 .filters {
     margin-top: 18px;
     background-color: var(--todoBg);
