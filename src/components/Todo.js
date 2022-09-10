@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 const Todo = (props) => {
-    console.log("props in todo", props);
+    // console.log("props in todo", props);
 
     const checked = useRef(null);
     const inputChecked = useRef(null);
