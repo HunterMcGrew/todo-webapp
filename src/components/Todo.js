@@ -27,7 +27,14 @@ const Todo = (props) => {
 
       return (
 
-        <div className="todoInnerContainer">
+        <div className="todoInnerContainer" 
+          draggable={true} 
+          idx={props.i}
+          onDragOver={(e) => e.preventDefault() }
+          onDragStart={props.handleDrag}
+          onDrop={props.handleDrop}
+        >
+      
       <div className="todo todo-new d-flex flex-nowrap" data-theme={props.theme} key={props.i}>
 
       <div className="checkbox d-flex justify-content-center align-items-center">
