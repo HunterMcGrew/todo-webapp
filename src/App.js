@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 
 // component imports
 import Todo from "./components/Todo";
+import Filters from "./components/Filters";
 
 // Database imports
 import { getDb, addDb, putDb, deleteDb } from "./database/database";
@@ -74,6 +75,7 @@ function App() {
     getDb().then((data) => {
       setAllDb(data);
       setAllDbBackup(data);
+      setDbFilter("all")
       // console.log("data2", data);
     })
     // console.log("dbData2", dbData)
@@ -148,7 +150,7 @@ function App() {
   }
 
   // get active (non complete) database 
-  const getActive = async () => {
+  const getActive = () => {
     setAllDbBackup(allDb);
     console.log("get active running");
     let tempArr = [];
@@ -229,8 +231,14 @@ function App() {
             {allDb.map((item, i) => {
               // console.log("item in map", item,);
               return (
-            <Todo item={item} i={i} theme={theme} handleCompleted={handleCompleted} handleDelete={handleDelete} dbFilter={dbFilter} />
-              )})}
+            <Todo item={item} 
+              i={i} 
+              theme={theme} 
+              handleCompleted={handleCompleted} 
+              handleDelete={handleDelete} 
+              dbFilter={dbFilter} 
+            />
+            )})}
         
 
                 {/* Turn into component */}
@@ -248,11 +256,19 @@ function App() {
       {/* filters */}
       <div className="filterContainer shadow">
 
-        <div className="filters d-flex justify-content-center align-items-center">
+        <Filters 
+          theme={theme} 
+          getAll={getAll} 
+          getActive={getActive} 
+          getCompleted={getCompleted} 
+          dbFilter={dbFilter}
+        />
+
+        {/* <div className="filters d-flex justify-content-center align-items-center">
           <span className="filterText activeFilter" data-theme={theme} onClick={getAll}>All</span>
           <span className="filterText" data-theme={theme} onClick={getActive}>Active</span>
           <span className="filterText" data-theme={theme} onClick={getCompleted}>Completed</span>
-        </div>
+        </div> */}
 
       </div>
       {/* end filters container */}
