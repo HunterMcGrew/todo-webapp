@@ -162,8 +162,23 @@
     cursor: pointer;
 }
 
+.circle {
+    color: var(--font);
+    opacity: .5s;
+}
+
+.circle[data-theme="dark"] {
+    color: var(--font);
+    opacity: .5;
+    border-radius: 15px;
+}
+
 .todo-input {
     width: fill;
+}
+
+.todo-input-new {
+    margin-left: 40px;
 }
 
 .textInput {
@@ -197,6 +212,12 @@
 
 .deleteIcon {
     cursor: pointer;
+    color: var(--font);
+}
+
+.deleteIcon[data-theme="dark"] {
+    cursor: pointer;
+    color: var(--font);
 }
 
 .todoHr {
@@ -272,6 +293,14 @@
     color: white;
 }
 
+.dragTxt {
+    color: var(--filterFont);
+}
+
+.dragTxt[data-theme="dark"] {
+    color: var(--filterFont);
+}
+
 
 /* from frontend mentor */
 
@@ -285,8 +314,6 @@
 }
 
 /* media queries for desktop */
-
-/* Need to fix landscape on iOS */
 
 @media screen and (min-width: 450px) {
     

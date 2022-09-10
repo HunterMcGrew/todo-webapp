@@ -43,7 +43,7 @@ function App() {
 
   // theme switch handler
   const switchTheme = () => {
-    console.log("switch pressed");
+    // console.log("switch pressed");
     // if theme is light change it to dark, else if it's dark change it to light
     const newTheme = theme === "light" ? "dark" : "light";
     // set the icon state for which icon to display
@@ -208,11 +208,11 @@ function App() {
       {/* new todo item */}
       <div className="todo todo-new d-flex flex-nowrap" data-theme={theme}>
 
-        <div className="checkbox d-flex justify-content-center align-items-center">
-          <span className="material-symbols-rounded circle">circle</span>
-        </div>
+        {/* <div className="checkbox d-flex justify-content-center align-items-center">
+          <span className="material-symbols-rounded circle" data-theme={theme}>circle</span>
+        </div> */}
 
-        <div className="todo-input d-flex justify-content-center align-items-center">
+        <div className="todo-input todo-input-new d-flex justify-content-center align-items-center">
           <input type="text" className="textInput" placeholder="Create a new todo..." data-theme={theme} onKeyDown={handleNewInput} onChange={handleChange} value={todo}></input>
         </div>
 
@@ -268,7 +268,7 @@ function App() {
       {/* end filters container */}
         
       <div className="footer d-flex justify-content-center align-items-center" data-theme={theme}>
-        <h3 className="m-0">Drag and drop to reorder list</h3>
+        <h6 className="m-0 dragTxt" dark-theme={theme}>Drag and drop to reorder list</h6>
       </div>
 
       </div>

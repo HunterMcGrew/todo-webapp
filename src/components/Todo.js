@@ -9,7 +9,7 @@ const Todo = (props) => {
       <div className="todo todo-new d-flex flex-nowrap" data-theme={props.theme} key={props.i}>
 
       <div className="checkbox d-flex justify-content-center align-items-center">
-        <span className="material-symbols-rounded circle" onClick={() => props.handleCompleted(props.item)} >{props.item.checked}</span>
+        <span className="material-symbols-rounded circle" data-theme={props.theme} onClick={() => props.handleCompleted(props.item)} >{props.item.checked}</span>
       </div>
 
       <div className="todo-input d-flex justify-content-center align-items-center">
@@ -17,7 +17,7 @@ const Todo = (props) => {
       </div>
 
       <div className="todo-delete d-flex justify-content-center align-items-center">
-        <span className="material-symbols-sharp deleteIcon p-0 m-0" onClick={() => props.handleDelete(props.item.id)}>close</span>
+        <span className="material-symbols-sharp deleteIcon p-0 m-0" data-theme={props.theme} onClick={() => props.handleDelete(props.item.id)}>close</span>
       </div>
 
       </div>
