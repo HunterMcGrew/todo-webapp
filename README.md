@@ -33,8 +33,8 @@ Users should be able to:
 
 ### Screenshot
 
-![image]()
-![image]()
+![image](https://github.com/HunterMcGrew/todo-webapp/blob/main/src/assets/images/screenshot_dark.PNG?raw=true)
+![image](https://github.com/HunterMcGrew/todo-webapp/blob/main/src/assets/images/screenshot_light.PNG?raw=true)
 
 ### Links
 
