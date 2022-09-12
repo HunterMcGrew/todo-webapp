@@ -19,11 +19,12 @@ const Filters = props => {
         }
         props.getAll();
         let classArr = all.current.classList;
-        if (classArr > 1) {
-            return;
-        } else {
-            classArr.add("activeFilter");
-        }
+        classArr.add("activeFilter");
+        // if (classArr > 1) {
+        //     return;
+        // } else {
+        //     classArr.add("activeFilter");
+        // }
     }
 
     const activeFunc = () => {
