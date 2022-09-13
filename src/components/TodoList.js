@@ -31,11 +31,11 @@ const TodoList = props => {
     const handleDbStates = async () => {
         try {
         // get db data
-        console.log("starting promise");
+        // console.log("starting promise");
         const data = await getDb();
-        console.log("data", data);
-        console.log("is this waiting?");
-        console.log("dbFilter in states", dbFilter);
+        // console.log("data", data);
+        // console.log("is this waiting?");
+        // console.log("dbFilter in states", dbFilter);
         // store a backup ** this may not be necessary anymore with code changes being done
         setAllDbBackup(data);
         // set states for active and markedcomplete
@@ -47,8 +47,8 @@ const TodoList = props => {
         // and for loops wont pop the last item.
         // this is my work around
         if (tempArr.length === 0) {
-            console.log("it's empty");
-            console.log("markedcomplete", markedComplete);
+            // console.log("it's empty");
+            // console.log("markedcomplete", markedComplete);
             markedComplete.forEach(item => markedComplete.pop());
             markedComplete.pop(); 
         } else {
@@ -56,7 +56,7 @@ const TodoList = props => {
         }
         // console.log("tempArr2 before set", tempArr2);
         setActiveDb(tempArr2);
-        console.log("activeDb in states", activeDb);
+        // console.log("activeDb in states", activeDb);
         // this is changing the activeDb state, but in the if statements
         // below when setting allDb to activeDb it isn't the updated data.
         // same thing happens for markedCompleted 
@@ -69,15 +69,15 @@ const TodoList = props => {
         // check to see which filter is being used
     
         if (dbFilter === "active") {
-            console.log("dbFilter in states active", dbFilter);
+            // console.log("dbFilter in states active", dbFilter);
             // setAllDb(activeDb);
             setAllDb(tempArr2);
             setDbFilter("active");
         } else if (dbFilter === "completed") {
-            console.log("dbFilter in states complete", dbFilter);
-            console.log("marked compelte should be empty", markedComplete);
+            // console.log("dbFilter in states complete", dbFilter);
+            // console.log("marked compelte should be empty", markedComplete);
             setAllDb(tempArr);
-            console.log("allDb after else if completed", allDb);
+            // console.log("allDb after else if completed", allDb);
             setDbFilter("completed");
         } else {
             setAllDb(data);
@@ -91,7 +91,7 @@ const TodoList = props => {
       
       // loads all DB data that is stored on page load to keep it up to date
       useEffect( () => {
-        console.log("useEffect running");
+        // console.log("useEffect running");
 
         if (dbFilter === null) {
             setDbFilter("all");
@@ -113,7 +113,7 @@ const TodoList = props => {
         // console.log("toDelete", toDelete);
         let deleted = await deleteDb(id);
         let result = deleted;
-        console.log("result in delete", result);
+        // console.log("result in delete", result);
         handleDbStates();
         // getDb().then((data) => setAllDb(data));
       }
@@ -140,13 +140,13 @@ const TodoList = props => {
           // let removeIdx = markedComplete.indexOf(item.id);
           // console.log("starting to remove from arr...indexOf", removeIdx);
           markedComplete.splice(removeIdx, 1);
-          console.log("removing from array...", markedComplete);
+          // console.log("removing from array...", markedComplete);
         };
         // console.log("updated item", toUpdate);
         // setMarkedComplete(tempCompletedArr);
         let beUpdated = await putDb(toUpdate, toUpdate.id);
         let result = beUpdated;
-        console.log("result in clear completed", result);
+        // console.log("result in clear completed", result);
         handleDbStates();
      
       }
@@ -164,7 +164,7 @@ const TodoList = props => {
         //   let tempArr = markedComplete.filter(entry => entry.id !== n);
         //   console.log("deletion loop", markedComplete);
         // })
-        console.log("dbFilter in deleteCompleted appjs", dbFilter);
+        // console.log("dbFilter in deleteCompleted appjs", dbFilter);
         handleDbStates();
         // setMarkedComplete([]);
         // getDb().then((data) => setAllDb(data));
