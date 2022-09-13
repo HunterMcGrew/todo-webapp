@@ -60,6 +60,8 @@ Going into this project I was a little intimidated by components and how to pass
 
 Drag and Drop to arrange items doesn't work for mobile devices, only desktop. I want to be able to drag and drop on mobile also.
 
+I also need to add some finishing touches to the Desktop view CSS. 
+
 
 ## Author
 
