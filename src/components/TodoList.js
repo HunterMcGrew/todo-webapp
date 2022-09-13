@@ -56,6 +56,10 @@ const TodoList = props => {
         }
         // console.log("tempArr2 before set", tempArr2);
         setActiveDb(tempArr2);
+        console.log("activeDb in states", activeDb);
+        // this is changing the activeDb state, but in the if statements
+        // below when setting allDb to activeDb it isn't the updated data.
+
         // console.log("activeDb after set", activeDb);
         // console.log("activeDb, markedComplete", activeDb, markedComplete);
         // console.log("tempArr, tempArr2", tempArr, tempArr2);
@@ -65,12 +69,13 @@ const TodoList = props => {
     
         if (dbFilter === "active") {
             console.log("dbFilter in states active", dbFilter);
-            setAllDb(activeDb);
+            // setAllDb(activeDb);
+            setAllDb(tempArr2);
             setDbFilter("active");
         } else if (dbFilter === "completed") {
             console.log("dbFilter in states complete", dbFilter);
             console.log("marked compelte should be empty", markedComplete);
-            setAllDb(markedComplete);
+            setAllDb(tempArr);
             console.log("allDb after else if completed", allDb);
             setDbFilter("completed");
         } else {
@@ -302,10 +307,10 @@ const TodoList = props => {
             return (
           <Todo item={item} 
             i={i} 
-            theme={theme} 
-            handleCompleted={handleCompleted} 
-            handleDelete={handleDelete} 
-            dbFilter={dbFilter} 
+            theme={theme}
+            handleCompleted={handleCompleted}
+            handleDelete={handleDelete}
+            dbFilter={dbFilter}
             handleDrag={handleDrag}
             handleDrop={handleDrop}
           />
