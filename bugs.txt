@@ -1,13 +1,4 @@
 
-when marking items as complete under "Active" they stay there
+Drag and Drop only works on desktop using HTML5s DnD api.
 
-when marking multiple items as completed under "Active" they go away out of order
-and buggy
-
-can't unmark a completed item under "Active", clikcing it a second time relaod
-the logic and makes it disapear
-
-*Makes me think everything is firing too fast?*
-
-when deleting a single compelted item under "Completed" it doesn't disapear 
-
+Needs to be able to work on mobile

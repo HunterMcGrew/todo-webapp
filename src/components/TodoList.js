@@ -59,6 +59,7 @@ const TodoList = props => {
         console.log("activeDb in states", activeDb);
         // this is changing the activeDb state, but in the if statements
         // below when setting allDb to activeDb it isn't the updated data.
+        // same thing happens for markedCompleted 
 
         // console.log("activeDb after set", activeDb);
         // console.log("activeDb, markedComplete", activeDb, markedComplete);
@@ -99,20 +100,6 @@ const TodoList = props => {
         if (dbFilter === "active") handleDbStates();
         if (dbFilter === "complete") handleDbStates();
 
-
-        // setDbFilter("all");
-        // getDb().then((data) => {
-        //   setAllDb(data)
-        //   setAllDbBackup(data);
-        //   // on page load sends markedComplete data to state
-        //   let tempArr = [];
-        //   data.forEach(item => {
-        //     if (item.isComplete === true) tempArr.push(item);
-        //   })
-        //   setMarkedComplete(tempArr)
-        //   setDbFilter("all")
-        // })
-        // return;
       }, [])
 
       if (props.test !== null){
@@ -161,10 +148,6 @@ const TodoList = props => {
         let result = beUpdated;
         console.log("result in clear completed", result);
         handleDbStates();
-        // getDb().then((data) => {
-        //   setAllDb(data)
-        //   .then(setAllDbBackup(data));
-          // console.log("data2", data);
      
       }
     
@@ -233,15 +216,15 @@ const TodoList = props => {
       // Drag functions
     
       const handleDbSwap = (item, item2) => {
-        console.log("item in swap func", item);
-        console.log("item2 in swap func", item2);
+        // console.log("item in swap func", item);
+        // console.log("item2 in swap func", item2);
     
         // store item.id in temp var
         let itemId = item.id;
         let item2id = item2.id;
         // change item2.id to random # since they are unique and cant have 2 of the same
         item2.id = item2.id + 50;
-        console.log("50", item2);
+        // console.log("50", item2);
         putDb(item2, item2.id).then(item.id = item2id)
         .then(putDb(item, item.id))
         .then(item2.id = itemId)
@@ -257,40 +240,40 @@ const TodoList = props => {
     
       const forceStateUpdate = () => {
         let tempAllDb = allDb.slice();
-        console.log("tempAllDb", tempAllDb);
+        // console.log("tempAllDb", tempAllDb);
         setAllDb(tempAllDb);
       }
     
       const handleDrag = e => {
         // get the index of item being dragged
-        console.log("drag", e.currentTarget.getAttribute("idx"));
+        // console.log("drag", e.currentTarget.getAttribute("idx"));
         let idx = e.currentTarget.getAttribute("idx");
         setDragId(idx)
-        console.log("dragId", dragId);
+        // console.log("dragId", dragId);
       }
     
     //   console.log("allDb", allDb);
     
       const handleDrop = e => {
         // swap the item being dragged at it's index with the item it's dropping ontos index
-        console.log("drop");
+        // console.log("drop");
         // let dragItem = allDb[dragId];
         // console.log("dragItem", dragItem);
         let idx2 = e.currentTarget.getAttribute("idx");
-        console.log("idx2", idx2);
+        // console.log("idx2", idx2);
         // let dropItem = allDb[e.currentTarget.getAttribute("idx")];
         // console.log("dropItem", dropItem);
     
-        console.log("swapping");
-        console.log("allDb before", allDb);
+        // console.log("swapping");
+        // console.log("allDb before", allDb);
         let temp1 = allDb[dragId];
-        console.log("temp", temp1);
+        // console.log("temp", temp1);
         let temp2 = allDb[idx2];
         allDb[dragId] = allDb[idx2];
     
         allDb[idx2] = temp1;
     
-        console.log("allDb after", allDb);
+        // console.log("allDb after", allDb);
         
         handleDbSwap(temp1, temp2);
 

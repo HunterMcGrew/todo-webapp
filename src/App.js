@@ -84,59 +84,14 @@ function App() {
       />
     {/* end new todo container */}
 
-
+    {/* saved todos */}
       <TodoList 
         theme={theme}
         addDb={addDb}
         test={test}
         setTest={setTest}
       />
-      {/* saved todo's
-      <div className="todoContainer shadow-sm" data-theme={theme}>
-        {/* repeat 
-  
-            {allDb.map((item, i) => {
-              // console.log("item in map", item,);
-              return (
-            <Todo item={item} 
-              i={i} 
-              theme={theme} 
-              handleCompleted={handleCompleted} 
-              handleDelete={handleDelete} 
-              dbFilter={dbFilter} 
-              handleDrag={handleDrag}
-              handleDrop={handleDrop}
-            />
-            )})}
-        
-
-          <div className="statsContainer shadow">
-
-            <Stats 
-              theme={theme}
-              allDb={allDb}
-              deleteCompleted={deleteCompleted}
-            />
-
-          </div>
-
-      </div>
-      {/* end todo container 
-
-      {/* filters 
-      <div className="filterContainer shadow">
-
-        <Filters 
-          theme={theme} 
-          getAll={getAll} 
-          getActive={getActive} 
-          getCompleted={getCompleted} 
-          dbFilter={dbFilter}
-        />
-
-      </div> */}
-      {/* end filters container */}
-        
+    
       <div className="footer d-flex justify-content-center align-items-center" data-theme={theme}>
         <h6 className="m-0 dragTxt" dark-theme={theme}>Drag and drop to reorder list</h6>
       </div>
