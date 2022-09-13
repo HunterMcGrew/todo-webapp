@@ -7,9 +7,6 @@ import { useState, useEffect } from 'react';
 // component imports
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
-import Todo from "./components/Todo";
-import Stats from "./components/Stats";
-import Filters from "./components/Filters";
 
 // Database imports
 import { getDb, addDb, putDb, deleteDb } from "./database/database";

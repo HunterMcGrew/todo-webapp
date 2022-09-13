@@ -38,6 +38,7 @@ const TodoList = props => {
         // console.log("dbFilter in states", dbFilter);
         // store a backup ** this may not be necessary anymore with code changes being done
         setAllDbBackup(data);
+        setAllDb(data);
         // set states for active and markedcomplete
         let tempArr = [];
         let tempArr2 = [];
@@ -92,10 +93,10 @@ const TodoList = props => {
       // loads all DB data that is stored on page load to keep it up to date
       useEffect( () => {
         // console.log("useEffect running");
-
+        handleDbStates();
         if (dbFilter === null) {
             setDbFilter("all");
-            getDb().then((data) => setAllDb(data));
+            // getDb().then((data) => setAllDb(data));
         }
         if (dbFilter === "active") handleDbStates();
         if (dbFilter === "complete") handleDbStates();
