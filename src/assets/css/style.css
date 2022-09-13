@@ -195,6 +195,7 @@
 
 .todo-input {
     width: fill;
+    width: -moz-available;
 }
 
 .todo-input-new {
