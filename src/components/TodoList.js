@@ -159,7 +159,7 @@ const TodoList = props => {
           // console.log("deletion", deletion);
           deleteDb(item.id);
         })
-        console.log("deletion", deletion);
+        // console.log("deletion", deletion);
         // deletion.forEach(n => {
         //   let tempArr = markedComplete.filter(entry => entry.id !== n);
         //   console.log("deletion loop", markedComplete);
